@@ -1,0 +1,145 @@
+<div class="row">
+  <div class="col-lg-10">
+    <span class="logo">Logo</span>
+  </div>
+  <div class="col-lg-2 ml-auto" *ngIf="!selectedOrder">
+    <div style="font-weight:bold">
+      {{user.name}}
+    </div>
+    <span style="color: #F08879">{{user.type}}</span>
+  </div>
+</div>
+<div class="row" style="margin-top:30px;">
+  <div class="col-lg-2">
+    <div class="form-check">
+      <input type="radio" class="form-check-input" id="modeProducts" name="mode">
+      <label class="form-check-label" for="modeProducts">Products</label>
+    </div>
+    <div class="form-check">
+      <input type="radio" class="form-check-input" id="modePackingQueue" name="mode" checked>
+      <label class="form-check-label" for="modePackingQueue">Packing Queue</label>
+    </div>
+
+  </div>
+  <div class="col">
+    <div style="margin-bottom:10px">
+      <span class="list-header">Packing Queue</span>
+      <button *ngIf="selectedOrderId == 0" type="button" class="btn btn-default float-right" (click)="refresh()">Refresh</button>
+    </div>
+    <div *ngIf="orders">
+      <div class="card shadow mb-3 col-lg-12 p-0" *ngFor="let order of orders; let index=index" [ngClass]="{'selected-order': selectedOrderId == order.id, 'disabled-order': selectedOrderId > 0 && selectedOrderId != order.id }" style="border-radius:20px;">
+        <div class="card-body">
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-lg-8">
+                <span style="font-size:20pt;font-weight:bold">#{{order.id}}</span>
+              </div>
+              <div class="col-lg-4 float-right">
+                <span>Ordered</span>
+                <div style="font-weight:bold">
+                  {{order.date | date : shortDate}}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 float-right">
+                <span>Provider</span>
+                <div style="font-weight:bold">
+                  {{order.provider.name}}
+                </div>
+              </div>
+              <div class="col-lg-3 float-right">
+                <span>Patient</span>
+                <div style="font-weight:bold">
+                  {{order.patient.firstName}} {{order.patient.lastName}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button *ngIf="selectedOrderId == 0 || selectedOrderId != order.id" [disabled]="selectedOrderId != 0 && selectedOrderId != order.id" type="button" [ngClass]="{'btn': true, 'btn-default': true, 'disabled' : selectedOrderId != 0 && selectedOrderId != order.id}" style="width:98%; margin:10px" (click)="selectOrder(order.id)">Start Packing</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div [ngClass]="{'col-lg-5': selectedOrder, 'col-lg-3': !selectedOrder}">
+    <div *ngIf="selectedOrder" [@slideInOut] class="order-detail-view">
+      <button type="button" class="close" aria-label="Close" (click)="closeDetailedView()">
+        <span aria-hidden="true">×</span>
+      </button>
+      <div>
+        <span class="list-header" style="margin-bottom:20px">Order #{{selectedOrder.id}}</span>
+      </div>
+      <div>
+        <div>
+          Order Placed
+        </div>
+        <div class="order-property">
+          {{selectedOrder.date | date:shortDate}}
+        </div>
+      </div>
+      <div>
+        <div>
+          Days Supply
+        </div>
+        <div class="order-property">
+          {{selectedOrder.daysSupply}} Days
+        </div>
+      </div>
+      <div>
+        <div>
+          Ship To
+        </div>
+        <div class="order-property" style="margin-bottom:0 !important">
+          {{selectedOrder.patient.firstName}} {{selectedOrder.patient.lastName}}
+        </div>
+        <div class="order-property">
+          {{selectedOrder.patient.address}}
+        </div>
+        <div class="card shadow mb-3 mr-1 p-0 product-list">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <span style="font-size:20pt;font-weight:bold">Product List</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4">
+                Name
+              </div>
+              <div class="col-lg-2">
+                Qty
+              </div>
+              <div class="col-lg-3">
+                Frequency
+              </div>
+              <div class="col-lg-3">
+                Days Supply
+              </div>
+            </div>
+            <div class="row" *ngFor="let item of selectedOrder.items">
+              <div class="col-lg-4 order-item">
+                {{item.name}}
+              </div>
+              <div class="col-lg-2 order-item">
+                {{item.quantity}}
+              </div>
+              <div class="col-lg-3 order-item">
+                {{item.frequency}}
+              </div>
+              <div class="col-lg-3 order-item">
+                {{item.daysSupply}}
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <div>
+          <button class="btn btn-pack">Pack Shipment</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

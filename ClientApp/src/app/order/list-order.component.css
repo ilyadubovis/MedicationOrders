@@ -1,0 +1,68 @@
+.logo {
+  background-image: linear-gradient(#FFACA0, #F08879);
+  color: white;
+  font-size: 20pt;
+  font-weight: bold;
+  padding:10px
+}
+
+.selected-order {
+  border-radius: 20px;
+  background-image: linear-gradient(#FFACA0, #F08879);
+  color: white;
+}
+
+.disabled-order {
+  border-radius: 20px;
+  opacity: 0.1;
+}
+
+.btn-default {
+  background-image: linear-gradient(#FFACA0, #F08879);
+  color: white;
+  letter-spacing: 1px;
+  line-height: 15px;
+  border: 2px solid #EFCCC7;
+  border-radius: 40px;
+}
+
+.btn-pack {
+  background-image: linear-gradient(#FFACA0, #F08879);
+  color: white;
+  width: 100%;
+  margin-top: 50px;
+}
+
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed
+}
+
+.list-header {
+  font-size:20pt;
+  font-weight:bold
+}
+
+.order-detail-view {
+  background-color: #FAF6F5;
+  padding: 10px;
+  min-height:100%;
+}
+
+.order-property {
+  font-size:14pt;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.product-list {
+  background-color: white;
+  border-radius: 10px;
+  margin-top:20px;
+}
+
+.order-item {
+  font-weight: bold;
+}
+
+
